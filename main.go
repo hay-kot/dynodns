@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/hay-kot/porkbun-dyndns-client/app/commands"
+	"github.com/hay-kot/dynodns/app/commands"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli/v2"
@@ -41,7 +41,7 @@ func main() {
 	ctrl := commands.New()
 
 	app := &cli.App{
-		Name:    "porkbun-dyndns-client",
+		Name:    "dynodns",
 		Usage:   "client for setting up dynamic DNS with porkbun",
 		Version: build(),
 		Flags: []cli.Flag{
@@ -165,6 +165,6 @@ func main() {
 	}
 
 	if err := app.Run(os.Args); err != nil {
-		log.Fatal().Err(err).Msg("failed to run porkbun-dyndns-client")
+		log.Fatal().Err(err).Msg("failed to run dynodns")
 	}
 }

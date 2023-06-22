@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hay-kot/porkbun-dyndns-client/app/lib/httpclient"
-	"github.com/hay-kot/porkbun-dyndns-client/app/lib/providers/porkbun"
+	"github.com/hay-kot/dynodns/app/lib/httpclient"
+	"github.com/hay-kot/dynodns/app/lib/providers/porkbun"
 	"github.com/rs/zerolog/log"
 )
 

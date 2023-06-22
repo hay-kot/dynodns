@@ -1,3 +1,3 @@
 FROM scratch
-ENTRYPOINT ["/porkbun-dyndns-client", "run"]
-COPY porkbun-dyndns-client /
+ENTRYPOINT ["/dynodns", "run"]
+COPY dynodns /

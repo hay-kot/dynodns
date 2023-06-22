@@ -22,10 +22,10 @@ dockers:
     goarch: arm
     goarm: 7
     image_templates:
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:{{ .Tag }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:v{{ .Major }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
+      - "ghcr.io/hay-kot/dynodns:latest"
+      - "ghcr.io/hay-kot/dynodns:{{ .Tag }}"
+      - "ghcr.io/hay-kot/dynodns:v{{ .Major }}"
+      - "ghcr.io/hay-kot/dynodns:latest"
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -36,10 +36,10 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:{{ .Tag }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:v{{ .Major }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
+      - "ghcr.io/hay-kot/dynodns:latest"
+      - "ghcr.io/hay-kot/dynodns:{{ .Tag }}"
+      - "ghcr.io/hay-kot/dynodns:v{{ .Major }}"
+      - "ghcr.io/hay-kot/dynodns:latest"
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -50,10 +50,10 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:{{ .Tag }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:v{{ .Major }}"
-      - "ghcr.io/hay-kot/porkbun-dyndns-client:latest"
+      - "ghcr.io/hay-kot/dynodns:latest"
+      - "ghcr.io/hay-kot/dynodns:{{ .Tag }}"
+      - "ghcr.io/hay-kot/dynodns:v{{ .Major }}"
+      - "ghcr.io/hay-kot/dynodns:latest"
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"

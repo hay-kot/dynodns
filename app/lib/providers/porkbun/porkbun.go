@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/hay-kot/porkbun-dyndns-client/app/lib/httpclient"
+	"github.com/hay-kot/dynodns/app/lib/httpclient"
 )
 
 type PorkBun struct {

@@ -1,4 +1,4 @@
-module github.com/hay-kot/porkbun-dyndns-client
+module github.com/hay-kot/dynodns
 
 go 1.20
 
