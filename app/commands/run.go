@@ -90,10 +90,21 @@ func (c *Controller) Run(ctx context.Context) (chan struct{}, error) {
 						continue
 					}
 
+					healthcheck := func() {
+						if c.PingURL != "" {
+							resp, err := c.client.GetCtx(ctx, c.PingURL)
+							if err != nil {
+								log.Err(err).Msg("failed to ping url")
+							}
+							_ = resp.Body.Close()
+						}
+					}
+
 					log.Info().Str("ip", ip).Msg("IP address retrieved")
 
 					if record.Content == ip {
 						log.Debug().Msg("ip address has not changed")
+						healthcheck()
 						continue
 					}
 
@@ -112,6 +123,9 @@ func (c *Controller) Run(ctx context.Context) (chan struct{}, error) {
 						log.Err(err).Msg("failed to set porkbun dns record")
 						continue
 					}
+
+					log.Info().Msg("porkbun dns record updated")
+					healthcheck()
 				}
 			}
 		}()

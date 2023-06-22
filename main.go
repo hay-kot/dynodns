@@ -42,7 +42,7 @@ func main() {
 
 	app := &cli.App{
 		Name:    "dynodns",
-		Usage:   "client for setting up dynamic DNS with porkbun",
+		Usage:   "client for setting up dynamic DNS",
 		Version: build(),
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -58,6 +58,13 @@ func main() {
 				Value:       300,
 				Destination: &ctrl.Interval,
 				EnvVars:     []string{"INTERVAL"},
+				Category:    "Options",
+			},
+			&cli.StringFlag{
+				Name:        "ping-url",
+				Usage:       "Healthcheck Ping URL",
+				Destination: &ctrl.PingURL,
+				EnvVars:     []string{"PING_URL"},
 				Category:    "Options",
 			},
 			&cli.StringFlag{

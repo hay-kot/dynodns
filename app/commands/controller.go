@@ -13,7 +13,8 @@ import (
 )
 
 type Controller struct {
-	Interval int // Interval in seconds
+	Interval int    // Interval in seconds
+	PingURL  string // URL to ping to indicate health
 
 	client *httpclient.Client
 
@@ -33,7 +34,7 @@ func New() *Controller {
 // GetPublicIP returns the public IP address of the client using
 // https://ifconfig.co/ip to get the IP Address
 func (c *Controller) GetPublicIP(ctx context.Context) (string, error) {
-	resp, err := c.client.GetCtx("https://ifconfig.co/ip", ctx)
+	resp, err := c.client.GetCtx(ctx, "https://ifconfig.co/ip")
 	if err != nil {
 		return "", err
 	}

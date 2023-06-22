@@ -39,7 +39,7 @@ func (c *Client) Get(url string, mw ...ClientMiddleware) (*http.Response, error)
 	return c.Do(req, mw)
 }
 
-func (c *Client) GetCtx(url string, ctx context.Context, mw ...ClientMiddleware) (*http.Response, error) {
+func (c *Client) GetCtx(ctx context.Context, url string, mw ...ClientMiddleware) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func (c *Client) Post(url string, payload []byte, mw ...ClientMiddleware) (*http
 	return c.Do(req, mw)
 }
 
-func (c *Client) PostCtx(url string, payload []byte, ctx context.Context, mw ...ClientMiddleware) (*http.Response, error) {
+func (c *Client) PostCtx(ctx context.Context, url string, payload []byte, mw ...ClientMiddleware) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewBuffer(payload))
 	if err != nil {
 		return nil, err
@@ -71,7 +71,7 @@ func (c *Client) Put(url string, payload []byte, mw ...ClientMiddleware) (*http.
 	return c.Do(req, mw)
 }
 
-func (c *Client) PutCtx(url string, payload []byte, ctx context.Context, mw ...ClientMiddleware) (*http.Response, error) {
+func (c *Client) PutCtx(ctx context.Context, url string, payload []byte, mw ...ClientMiddleware) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, bytes.NewBuffer(payload))
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (c *Client) Delete(url string, mw ...ClientMiddleware) (*http.Response, err
 	return c.Do(req, mw)
 }
 
-func (c *Client) DeleteCtx(url string, ctx context.Context, mw ...ClientMiddleware) (*http.Response, error) {
+func (c *Client) DeleteCtx(ctx context.Context, url string, mw ...ClientMiddleware) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodDelete, url, nil)
 	if err != nil {
 		return nil, err
