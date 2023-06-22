@@ -51,10 +51,10 @@ func (t Transport) logResponse(resp *http.Response) {
 
 func LogErrRequest(l zerolog.Logger, req *http.Response, err error) {
 	bodyCopy := new(bytes.Buffer)
-  if req == nil {
-    l.Error().Err(err).Msg("request is nil")
-    return
-  }
+	if req == nil {
+		l.Error().Err(err).Msg("request is nil")
+		return
+	}
 
 	if req.Body != nil {
 		_, _ = bodyCopy.ReadFrom(req.Body)
