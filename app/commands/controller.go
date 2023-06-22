@@ -26,7 +26,7 @@ type Controller struct {
 
 // New creates a new Controller with default values
 func New() *Controller {
-	client := httpclient.New(&http.Client{Transport: httpclient.NewTransport(&log.Logger)}, "")
+	client := httpclient.New(&http.Client{Transport: httpclient.NewTransport(log.Logger)}, "")
 	return &Controller{client: client}
 }
 

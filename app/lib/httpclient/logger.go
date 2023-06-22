@@ -11,11 +11,11 @@ import (
 )
 
 type Transport struct {
-	l         *zerolog.Logger
+	l         zerolog.Logger
 	Transport http.RoundTripper
 }
 
-func NewTransport(l *zerolog.Logger) *Transport {
+func NewTransport(l zerolog.Logger) *Transport {
 	return &Transport{l: l, Transport: http.DefaultTransport}
 }
 
@@ -49,7 +49,7 @@ func (t Transport) logResponse(resp *http.Response) {
 		Msg("resp <-")
 }
 
-func LogErrRequest(l *zerolog.Logger, req *http.Response, err error) {
+func LogErrRequest(l zerolog.Logger, req *http.Response, err error) {
 	bodyCopy := new(bytes.Buffer)
 	if req.Body != nil {
 		_, _ = bodyCopy.ReadFrom(req.Body)
