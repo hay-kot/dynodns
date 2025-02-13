@@ -55,7 +55,7 @@ func main() {
 				Name:     "log-style",
 				Usage:    "set the log style to console or json",
 				Value:    "console",
-				EnvVars:  []string{"LOG_STYLE"},
+				EnvVars:  []string{"LOG_STYLE", "LOG_FORMAT"},
 				Category: "Options",
 			},
 			&cli.IntFlag{
