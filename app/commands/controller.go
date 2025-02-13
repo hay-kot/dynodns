@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/hay-kot/dynodns/app/lib/httpclient"
-	"github.com/rs/zerolog/log"
 )
 
 type Controller struct {
@@ -27,7 +26,7 @@ type Controller struct {
 
 // New creates a new Controller with default values
 func New() *Controller {
-	client := httpclient.New(&http.Client{Transport: httpclient.NewTransport(log.Logger)}, "")
+	client := httpclient.New(&http.Client{Transport: httpclient.NewTransport()}, "")
 	return &Controller{client: client}
 }
 

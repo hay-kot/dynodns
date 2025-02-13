@@ -8,15 +8,15 @@ import (
 	"net/http"
 
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 type Transport struct {
-	l         zerolog.Logger
 	Transport http.RoundTripper
 }
 
-func NewTransport(l zerolog.Logger) *Transport {
-	return &Transport{l: l, Transport: http.DefaultTransport}
+func NewTransport() *Transport {
+	return &Transport{Transport: http.DefaultTransport}
 }
 
 func (t Transport) RoundTrip(req *http.Request) (*http.Response, error) {
@@ -24,7 +24,7 @@ func (t Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 
 	resp, err := t.Transport.RoundTrip(req)
 	if err != nil {
-		LogErrRequest(t.l, resp, err)
+		LogErrRequest(log.Logger, resp, err)
 		return nil, err
 	}
 
@@ -33,14 +33,14 @@ func (t Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func (t Transport) logRequest(req *http.Request) {
-	t.l.Info().Str("method", req.Method).Str("url", req.URL.String()).Msg("req  ->")
+	log.Info().Str("method", req.Method).Str("url", req.URL.String()).Msg("req  ->")
 }
 
 func (t Transport) logResponse(resp *http.Response) {
-	l := t.l.Info()
+	l := log.Info()
 
 	if resp.StatusCode >= 400 {
-		l = t.l.Error()
+		l = log.Error()
 	}
 
 	l.Str("method", resp.Request.Method).

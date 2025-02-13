@@ -37,7 +37,6 @@ type DNSRecord struct {
 }
 
 func main() {
-	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	ctrl := commands.New()
 
 	app := &cli.App{
@@ -50,6 +49,13 @@ func main() {
 				Usage:    "log level (debug, info, warn, error, fatal, panic)",
 				Value:    "info",
 				EnvVars:  []string{"LOG_LEVEL"},
+				Category: "Options",
+			},
+			&cli.StringFlag{
+				Name:     "log-style",
+				Usage:    "set the log style to console or json",
+				Value:    "console",
+				EnvVars:  []string{"LOG_STYLE"},
 				Category: "Options",
 			},
 			&cli.IntFlag{
@@ -86,7 +92,7 @@ func main() {
 			&cli.StringFlag{
 				Name:        "porkbun.endpoint",
 				Usage:       "porkbun api endpoint",
-				Value:       "https://porkbun.com/api/json/v3",
+				Value:       "https://api.porkbun.com/api/json/v3",
 				Destination: &ctrl.PorkBunEndpoint,
 				EnvVars:     []string{"PORKBUN_API_ENDPOINT"},
 				Category:    "Porkbun",
@@ -109,21 +115,16 @@ func main() {
 			},
 		},
 		Before: func(ctx *cli.Context) error {
-			switch ctx.String("log-level") {
-			case "debug":
-				log.Level(zerolog.DebugLevel)
-			case "info":
-				log.Level(zerolog.InfoLevel)
-			case "warn":
-				log.Level(zerolog.WarnLevel)
-			case "error":
-				log.Level(zerolog.ErrorLevel)
-			case "fatal":
-				log.Level(zerolog.FatalLevel)
-			default:
-				log.Level(zerolog.PanicLevel)
+			if ctx.String("log-style") != "json" {
+				log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 			}
 
+			level, err := zerolog.ParseLevel(ctx.String("log-level"))
+			if err != nil {
+				return err
+			}
+
+			log.Logger = log.Level(level)
 			return nil
 		},
 		Commands: []*cli.Command{
@@ -164,7 +165,7 @@ func main() {
 						return err
 					}
 
-					fmt.Println("External IP: " + ip)
+					log.Info().Str("ip", ip).Msg("found external ip")
 					return nil
 				},
 			},

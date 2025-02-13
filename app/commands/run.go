@@ -14,7 +14,7 @@ import (
 
 func (c *Controller) Run(ctx context.Context) (chan struct{}, error) {
 	pb := porkbun.New(
-		httpclient.New(&http.Client{Transport: httpclient.NewTransport(log.Logger)}, c.PorkBunEndpoint),
+		httpclient.New(&http.Client{Transport: httpclient.NewTransport()}, c.PorkBunEndpoint),
 		c.PorkBunKey,
 		c.PorkBunSecret,
 		c.PorkBunSubDomain,
