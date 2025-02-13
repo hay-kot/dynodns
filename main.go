@@ -92,7 +92,7 @@ func main() {
 			&cli.StringFlag{
 				Name:        "porkbun.endpoint",
 				Usage:       "porkbun api endpoint",
-				Value:       "https://porkbun.com/api/json/v3",
+				Value:       "https://api.porkbun.com/api/json/v3",
 				Destination: &ctrl.PorkBunEndpoint,
 				EnvVars:     []string{"PORKBUN_API_ENDPOINT"},
 				Category:    "Porkbun",
