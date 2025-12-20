@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/hay-kot/dynodns/app/lib/httpclient"
@@ -91,13 +92,36 @@ func (c *Controller) Run(ctx context.Context) (chan struct{}, error) {
 					}
 
 					healthcheck := func() {
-						if c.PingURL != "" {
-							resp, err := c.client.GetCtx(ctx, c.PingURL)
-							if err != nil {
-								log.Err(err).Msg("failed to ping url")
-							}
-							_ = resp.Body.Close()
+						if c.PingURL == "" {
+							return
 						}
+
+						method := c.PingMethod
+						if method == "" {
+							method = http.MethodGet
+						}
+
+						req, err := http.NewRequestWithContext(ctx, method, c.PingURL, nil)
+						if err != nil {
+							log.Err(err).Msg("failed to create ping request")
+							return
+						}
+
+						for _, h := range c.PingHeaders {
+							key, value, ok := strings.Cut(h, ":")
+							if !ok {
+								log.Warn().Str("header", h).Msg("invalid header format, expected 'Key: Value'")
+								continue
+							}
+							req.Header.Set(strings.TrimSpace(key), strings.TrimSpace(value))
+						}
+
+						resp, err := c.client.Do(req, nil)
+						if err != nil {
+							log.Err(err).Msg("failed to ping url")
+							return
+						}
+						_ = resp.Body.Close()
 					}
 
 					log.Info().Str("ip", ip).Msg("IP address retrieved")

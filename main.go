@@ -74,6 +74,20 @@ func main() {
 				Category:    "Options",
 			},
 			&cli.StringFlag{
+				Name:        "ping-method",
+				Usage:       "HTTP method for healthcheck ping (GET, POST, HEAD, etc.)",
+				Value:       "GET",
+				Destination: &ctrl.PingMethod,
+				EnvVars:     []string{"PING_METHOD"},
+				Category:    "Options",
+			},
+			&cli.StringSliceFlag{
+				Name:     "ping-header",
+				Usage:    "Headers for healthcheck ping (format: 'Key: Value', can be specified multiple times)",
+				EnvVars:  []string{"PING_HEADERS"},
+				Category: "Options",
+			},
+			&cli.StringFlag{
 				Name:        "porkbun.subdomain",
 				Usage:       "porkbun subdomain to update",
 				Value:       "dns",
@@ -125,6 +139,8 @@ func main() {
 			}
 
 			log.Logger = log.Level(level)
+
+			ctrl.PingHeaders = ctx.StringSlice("ping-header")
 			return nil
 		},
 		Commands: []*cli.Command{

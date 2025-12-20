@@ -12,8 +12,10 @@ import (
 )
 
 type Controller struct {
-	Interval int    // Interval in seconds
-	PingURL  string // URL to ping to indicate health
+	Interval    int      // Interval in seconds
+	PingURL     string   // URL to ping to indicate health
+	PingMethod  string   // HTTP method for health check (default: GET)
+	PingHeaders []string // Headers to send with health check (format: "Key: Value")
 
 	client *httpclient.Client
 
